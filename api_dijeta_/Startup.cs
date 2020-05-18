@@ -6,6 +6,7 @@ using api_dijeta_data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +44,14 @@ namespace api_dijeta_
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-         // app.UseHttpsRedirection();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
+{
+{ ".apk","application/vnd.android.package-archive"}
+})
+            });
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseFileServer();
 
